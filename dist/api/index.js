@@ -18,11 +18,12 @@ const app = (0, express_1.default)();
 function default_1(client) {
     return __awaiter(this, void 0, void 0, function* () {
         app.use(express_1.default.json());
+        app.use(express_1.default.urlencoded({ extended: true }));
         app.use((req, res, next) => {
             req.client = client;
             next();
         });
-        app.use(router_1.default);
+        app.use('/api', router_1.default);
         app.listen(8000, () => console.log('Web server running!'));
     });
 }

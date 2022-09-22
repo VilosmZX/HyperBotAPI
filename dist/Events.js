@@ -21,6 +21,7 @@ function default_1(client) {
         client.ev.on('messages.upsert', ({ messages }) => __awaiter(this, void 0, void 0, function* () {
             const { key: { remoteJid, participant }, pushName, message } = messages[0];
             const countryCode = (0, Utils_1.extractCountryCode)(participant);
+            console.log(remoteJid);
         }));
     });
 }
