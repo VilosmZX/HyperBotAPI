@@ -22,5 +22,5 @@ export async function isGroupExistsInDB(prisma: PrismaClient, jid: string): Prom
 }
 
 export function extractCoutryCode(participantNumber: string): string {
-    return participantNumber.substring(0, 3);
+    return participantNumber.substring(0, 2);
 }
