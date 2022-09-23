@@ -1,2 +1,5 @@
 node_modules/
 baileys_auth/
+migrations/
+*.db
+*.db-journal
