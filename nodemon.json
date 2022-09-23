@@ -1,3 +1,4 @@
 {
-    "ignore": ["*.json"]
+    "ignore": [".json", "baileys_auth/"],
+    "verbose": true
 }
