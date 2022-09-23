@@ -61,7 +61,9 @@ This API has cool features like:
   ]
   ```
 * Send Message (/api/client/chats/:jid/send?msg=test)
-  
+
+Many more 
+
 # Do this first
 Install semua package
 ```
