@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "dev": "nodemon --files src/index.ts"
+    "dev": "nodemon --files src/index.ts",
+    "prod": "ts-node --files src/index.ts",
+    "compilets": "tsc",
+    "migrate": "prisma migrate dev --name dev"
   },
   "dependencies": {
     "@adiwajshing/baileys": "^4.4.0",
