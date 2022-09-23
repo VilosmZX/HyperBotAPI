@@ -11,7 +11,7 @@ router.get('/chats', async (req, res) => {
 
 router.get('/chats/:jid', async (req, res) => {
     const jid = req.params.jid as string;
-    const chat = await req.client.groupMetadata(jid) || null;
+    const chat = await req.client.groupMetadata(jid);
     if (await isGroupExists(req.client, jid))
         return res.status(200).json(chat)
     res.status(404).json({error: 'Group not found!'});
@@ -30,6 +30,18 @@ router.post('/autoreply/add', async (req, res) => {
         trigger: data.trigger,
         reply: data.reply
     })
+});
+
+router.get('/logs/:jid', async (req, res) => {
+    const jid = req.params.jid;
+    const chatLogs = await req.prisma.chat.findMany({
+        where: {
+            group: {
+                jid,
+            }
+        }
+    });
+    res.status(200).json(chatLogs);
 });
 
 router.get('/autoreply/list', async (req, res) => {
