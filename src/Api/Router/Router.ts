@@ -8,9 +8,6 @@ router.get('/chats', async (req, res) => {
     res.status(200).json(chats);
 });
 
-interface Test {
-    data: number[]
-}
 
 router.get('/chats/:jid', async (req, res) => {
     const jid = req.params.jid as string;
@@ -18,6 +15,46 @@ router.get('/chats/:jid', async (req, res) => {
     if (await isGroupExists(req.client, jid))
         return res.status(200).json(chat)
     res.status(404).json({error: 'Group not found!'});
+});
+
+router.post('/autoreply/add', async (req, res) => {
+    const data = req.body;
+    await req.prisma.autoReply.create({
+        data: {
+            trigger: data.trigger!,
+            reply: data.reply!,
+        }
+    })
+    res.status(200).json({
+        status: 'Success',
+        trigger: data.trigger,
+        reply: data.reply
+    })
+});
+
+router.get('/autoreply/list', async (req, res) => {
+    const allAutoReply = await req.prisma.autoReply.findMany();
+    res.status(200).json(allAutoReply);
+});
+
+router.delete('/autoreply/delete', async (req, res) => {
+    const id = Number.parseInt(req.query.id as string);
+    const deletedCommand = await req.prisma.autoReply.delete({
+        where: {
+            id
+        }
+    });
+    res.status(200).json({
+        status: 'Deleted',
+        ...deletedCommand,
+    })
+});
+
+router.delete('/autoreply/clear', async (req, res) => {
+    const { count } = await req.prisma.autoReply.deleteMany();
+    res.status(200).json({
+        deletedItems: count,
+    })
 });
 
 router.post('/chats/:jid/send', async (req, res) => {
