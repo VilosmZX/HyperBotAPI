@@ -14,4 +14,22 @@ model AutoReply {
   id Int @id @unique @default(autoincrement())
   trigger String @unique
   reply String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chat {
+  id Int @id @unique @default(autoincrement())
+  groupId String
+  group GroupChat @relation(fields: [groupId], references: [jid])
+  pushname String
+  conversation String 
+  fromMe Boolean
+  countryCode String 
+  number String 
+}
+
+model GroupChat {
+  jid String @id @unique
+  logs Chat[] 
 }
