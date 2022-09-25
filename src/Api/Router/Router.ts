@@ -8,6 +8,11 @@ router.get('/chats', async (req, res) => {
     res.status(200).json(Object.values(chats));
 });
 
+router.get('/github', async (req, res) => {
+    const gitlogs = await req.prisma.gitPush.findMany();
+    res.status(200).json(gitlogs);
+});
+
 router.post('/github', async (req, res) => {
     const { 
         pusher: { name, email }, 
