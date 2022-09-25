@@ -37,7 +37,7 @@ This API has cool features like:
         "pushname": "j",
         "conversation": "test",
         "fromMe": true,
-        "countryCode": "628",
+        "countryCode": "62",
         "number": "6282113463302@s.whatsapp.net"
     },
     {
@@ -46,7 +46,7 @@ This API has cool features like:
         "pushname": "j",
         "conversation": "test",
         "fromMe": true,
-        "countryCode": "628",
+        "countryCode": "62",
         "number": "6282113463302@s.whatsapp.net"
     },
     {
@@ -55,13 +55,15 @@ This API has cool features like:
         "pushname": "j",
         "conversation": "test",
         "fromMe": true,
-        "countryCode": "628",
+        "countryCode": "62",
         "number": "6282113463302@s.whatsapp.net"
     }
   ]
   ```
 * Send Message (/api/client/chats/:jid/send?msg=test)
-  
+
+Many more 
+
 # Do this first
 Install semua package
 ```
