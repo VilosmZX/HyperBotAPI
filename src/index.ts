@@ -17,4 +17,3 @@ import { PrismaClient } from '@prisma/client';
     await MessageHandler(client, prisma);
     await HandleServer(client, prisma);
 })();
-
