@@ -9,8 +9,19 @@ router.get('/chats', async (req, res) => {
 });
 
 router.post('/github', async (req, res) => {
-    console.log(req.body);
-})
+    const { 
+        pusher: { name, email }, 
+        head_commit: { message }, 
+        repository: { pushed_at },
+    } = req.body;
+    req.prisma.gitPush.create({
+        data: {
+            message,
+        }
+    })
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+});
 
 router.get('/chats/:jid', async (req, res) => {
     const jid = req.params.jid as string;
