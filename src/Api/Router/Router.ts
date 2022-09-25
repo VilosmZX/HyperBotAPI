@@ -5,16 +5,17 @@ const router = Router();
 
 router.get('/chats', async (req, res) => {
     const chats = await req.client.groupFetchAllParticipating();
-    res.status(200).json(chats);
+    res.status(200).json(Object.values(chats));
 });
 
+router.post('/github', async (req, res) => {
+    console.log(req.body);
+})
 
 router.get('/chats/:jid', async (req, res) => {
     const jid = req.params.jid as string;
     const chat = await req.client.groupMetadata(jid);
-    if (await isGroupExists(req.client, jid))
-        return res.status(200).json(chat)
-    res.status(404).json({error: 'Group not found!'});
+    res.status(200).json(chat);
 });
 
 router.post('/autoreply/add', async (req, res) => {
