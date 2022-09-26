@@ -5,7 +5,7 @@ import HandleServer from './Api/Server';
 import pino from 'pino';
 import { PrismaClient } from '@prisma/client';
 
-(async () => {
+async function connectToWa() {
     const { state, saveCreds } = await useMultiFileAuthState('./baileys_auth/auth1');
     const client = makeWaSocket({
         auth: state,
@@ -13,7 +13,9 @@ import { PrismaClient } from '@prisma/client';
         logger: pino({ level: 'silent' })
     });
     const prisma = new PrismaClient();
-    await EventHandler(client, saveCreds);
+    await EventHandler(client, saveCreds, connectToWa);
     await MessageHandler(client, prisma);
     await HandleServer(client, prisma);
-})();
+};
+
+connectToWa();
