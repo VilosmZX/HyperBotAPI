@@ -86,6 +86,33 @@ router.delete('/autoreply/clear', async (req, res) => {
     })
 });
 
+router.get('/autoreply', async (req, res) => {
+    const find = req.query.find as string;
+    const isExists = (await req.prisma.autoReply.findFirst({
+        where: {
+            trigger: find,
+        }
+    })) !== null;
+    if (!isExists)
+        return res.status(200).json({ isExists });
+    res.status(200).json({ isExists });
+});
+
+router.patch('/autoreply/update', async (req, res) => {
+    const id = Number.parseInt(req.query.id as string);
+    const data: { trigger: string | undefined, reply: string | undefined} = req.body;
+    await req.prisma.autoReply.update({
+        where: {
+            id,
+        },
+        data: {
+            reply: data.reply!,
+            trigger: data.trigger!,
+        }
+    });
+    res.sendStatus(200);
+});
+
 router.post('/chats/:jid/send', async (req, res) => {
     const jid = req.params.jid;
     const msg = req.query.msg as string;
@@ -99,6 +126,7 @@ router.post('/chats/:jid/send', async (req, res) => {
     }
     res.sendStatus(403);
 });
+
 
 
 export default router;
